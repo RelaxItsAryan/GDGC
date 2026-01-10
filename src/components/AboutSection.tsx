@@ -216,8 +216,8 @@ export default function AboutSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           {[
-            { number: '500+', label: 'Active Members', color: 'google-blue' },
-            { number: '50+', label: 'Events Hosted', color: 'google-red' },
+            { number: '100+', label: 'Active Members', color: 'google-blue' },
+            { number: '10+', label: 'Events Hosted', color: 'google-red' },
             { number: '30+', label: 'Workshops', color: 'google-yellow' },
             { number: '10+', label: 'Projects Built', color: 'google-green' },
           ].map((stat, index) => (
