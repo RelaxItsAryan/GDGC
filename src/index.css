@@ -129,6 +129,49 @@
     background-clip: text;
   }
 
+  /* Highlight wrapper and box + bar behind text for splash */
+  .highlight-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.6rem;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  .highlight-bar {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 0.12em;
+    height: 0.55em;
+    background: linear-gradient(90deg, rgba(255,140,120,0.98), rgba(180,88,255,0.98), rgba(84,159,255,0.98));
+    border-radius: 0.35rem;
+    z-index: 1;
+    transform-origin: left;
+    will-change: transform;
+  }
+
+  @keyframes highlightPulse {
+    0% { box-shadow: 0 0 0 rgba(155,100,240,0.04); transform: scale(1); }
+    50% { box-shadow: 0 0 18px rgba(155,100,240,0.04); transform: scale(1.008); }
+    100% { box-shadow: 0 0 0 rgba(155,100,240,0.04); transform: scale(1); }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.06) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 2s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
   .bg-gradient-hero {
     background: var(--gradient-hero);
   }

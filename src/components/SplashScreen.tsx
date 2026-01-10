@@ -31,22 +31,28 @@ export default function SplashScreen() {
           <div className="absolute inset-0 bg-black/20 z-0" />
           {/* Text content at the top, only once */}
           <div className="w-full flex flex-col items-center justify-center min-h-screen z-10">
-            <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground mb-4 tracking-tight text-center"
+            <motion.div
+              className="relative inline-block highlight-wrapper text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <span className="text-gradient-google">GDGC VIT Bhopal</span>
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl text-muted-foreground max-w-md mx-auto font-light tracking-wide text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              Building. Learning. Growing Together.
-            </motion.p>
+              <motion.span
+                className="highlight-bar"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: 'left' }}
+              />
+
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-2 tracking-tight text-gradient-google relative z-10">
+                GDGC VIT Bhopal
+              </h1>
+
+              <p className="text-lg md:text-xl text-white/95 max-w-md mx-auto font-light tracking-wide mt-2 relative z-10 shimmer">
+                Building. Learning. Growing Together.
+              </p>
+            </motion.div>
           </div>
 
         {/* Scanline effect */}
