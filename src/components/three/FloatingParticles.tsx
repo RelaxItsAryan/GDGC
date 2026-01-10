@@ -96,28 +96,122 @@ function FloatingShape({ position, color, shape }: { position: [number, number, 
   );
 }
 
+function SmallModel({ position, type, scale = 1 }: { position: [number, number, number]; type: 'plane' | 'kite' | 'cloud' | 'phone' | 'device'; scale?: number }) {
+  const ref = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = Math.sin(state.clock.elapsedTime + position[0]) * 0.25;
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime + position[1]) * 0.1;
+      // subtle bobbing
+      ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.6 + position[0]) * 0.15;
+    }
+  });
+
+  return (
+    <group ref={ref} position={position} scale={scale}>
+      {type === 'plane' && (
+        <mesh rotation={[0.2, 0.5, 0]}>
+          <coneGeometry args={[0.12, 0.6, 3]} />
+          <meshStandardMaterial color="#4285F4" metalness={0.25} roughness={0.4} />
+        </mesh>
+      )}
+
+      {type === 'kite' && (
+        <group>
+          <mesh rotation={[0, 0.3, 0]}> 
+            <boxGeometry args={[0.22, 0.01, 0.22]} />
+            <meshStandardMaterial color="#FB923C" />
+          </mesh>
+          <mesh position={[0, -0.14, 0]}>
+            <cylinderGeometry args={[0.01, 0.01, 0.28, 6]} />
+            <meshStandardMaterial color="#6B7280" />
+          </mesh>
+        </group>
+      )}
+
+      {type === 'cloud' && (
+        <group>
+          <mesh position={[-0.12, 0, 0]}>
+            <sphereGeometry args={[0.12, 8, 8]} />
+            <meshStandardMaterial color="#f3f4f6" />
+          </mesh>
+          <mesh position={[0.14, 0.05, 0]}>
+            <sphereGeometry args={[0.14, 8, 8]} />
+            <meshStandardMaterial color="#f3f4f6" />
+          </mesh>
+          <mesh position={[0.38, -0.02, 0]}>
+            <sphereGeometry args={[0.1, 8, 8]} />
+            <meshStandardMaterial color="#f3f4f6" />
+          </mesh>
+        </group>
+      )}
+
+      {type === 'phone' && (
+        <mesh>
+          <boxGeometry args={[0.18, 0.28, 0.02]} />
+          <meshStandardMaterial color="#111827" metalness={0.1} roughness={0.3} />
+        </mesh>
+      )}
+
+      {type === 'device' && (
+        <group>
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[0.5, 0.05, 0.3]} />
+            <meshStandardMaterial color="#E5E7EB" />
+          </mesh>
+          <mesh position={[0, 0.08, 0.02]}>
+            <planeGeometry args={[0.44, 0.22]} />
+            <meshStandardMaterial color="#111827" />
+          </mesh>
+        </group>
+      )}
+    </group>
+  );
+}
+
 function Scene() {
+  // moved models further to the edges and separated them more to avoid overlapping the headline
+  const models = [
+    { position: [-6.0, 2.2, 2.0], type: 'cloud', scale: 1.6 },
+    { position: [-5.0, 0.8, 1.8], type: 'plane', scale: 1.0 },
+    { position: [-3.8, -1.0, 1.6], type: 'kite', scale: 1.0 },
+    { position: [4.8, 2.0, 2.1], type: 'cloud', scale: 1.4 },
+    { position: [5.2, 0.6, 2.0], type: 'kite', scale: 1.0 },
+    { position: [4.6, -1.0, 2.2], type: 'device', scale: 1.0 },
+    { position: [2.5, -2.2, 1.6], type: 'phone', scale: 0.9 },
+    { position: [-5.2, -1.6, 1.9], type: 'plane', scale: 0.9 },
+    { position: [3.6, 0.6, 1.8], type: 'kite', scale: 0.9 },
+  ];
+
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <Particles count={100} />
-      
-      <FloatingShape position={[-3, 2, -2]} color="#4285F4" shape="sphere" />
-      <FloatingShape position={[3, -1, -3]} color="#EA4335" shape="box" />
-      <FloatingShape position={[-2, -2, -1]} color="#FBBC04" shape="torus" />
-      <FloatingShape position={[2, 2, -2]} color="#34A853" shape="sphere" />
-      <FloatingShape position={[0, -3, -4]} color="#4285F4" shape="box" />
-      <FloatingShape position={[-4, 0, -3]} color="#EA4335" shape="torus" />
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[5, 10, 5]} intensity={1.0} />
+      <hemisphereLight intensity={0.4} />
+
+      <Particles count={140} />
+
+      {/* existing floating shapes */}
+      <FloatingShape position={[-3.5, 1.6, 1.2]} color="#4285F4" shape="sphere" />
+      <FloatingShape position={[3.2, -0.8, 1.2]} color="#EA4335" shape="box" />
+      <FloatingShape position={[-2.8, -1.6, 1.1]} color="#FBBC04" shape="torus" />
+      <FloatingShape position={[2.8, 1.6, 1.2]} color="#34A853" shape="sphere" />
+
+      {/* extra small decorative 3D models */}
+      {models.map((m, i) => (
+        <SmallModel key={i} position={m.position as [number, number, number]} type={m.type as any} scale={m.scale} />
+      ))}
     </>
   );
 }
 
 export default function FloatingParticles() {
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 z-0 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
+        className="pointer-events-none"
+        camera={{ position: [0, 0, 6], fov: 60 }}
         style={{ background: 'transparent' }}
       >
         <Scene />

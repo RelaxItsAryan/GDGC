@@ -19,7 +19,7 @@ export default function SplashScreen() {
   return (
     <AnimatePresence>
         <motion.div
-          className="flex flex-col min-h-screen text-white relative overflow-hidden"
+          className="flex flex-col min-h-screen text-foreground relative overflow-hidden"
           style={{
             backgroundImage: `url(${hologramLogo})`,
             backgroundSize: 'cover',
@@ -28,11 +28,11 @@ export default function SplashScreen() {
           }}
         >
           {/* Overlay for darkening and clarity */}
-          <div className="absolute inset-0 bg-black/70 z-0" />
+          <div className="absolute inset-0 bg-black/20 z-0" />
           {/* Text content at the top, only once */}
           <div className="w-full flex flex-col items-center justify-center min-h-screen z-10">
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-4 tracking-tight text-center"
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground mb-4 tracking-tight text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -40,7 +40,7 @@ export default function SplashScreen() {
               <span className="text-gradient-google">GDGC VIT Bhopal</span>
             </motion.h1>
             <motion.p
-              className="text-lg md:text-xl text-white/60 max-w-md mx-auto font-light tracking-wide text-center"
+              className="text-lg md:text-xl text-muted-foreground max-w-md mx-auto font-light tracking-wide text-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -58,16 +58,16 @@ export default function SplashScreen() {
         />
 
         {/* Corner decorations */}
-        <div className="absolute top-8 left-8 text-white/10 font-mono text-xs hidden md:block">
+        <div className="absolute top-8 left-8 text-muted-foreground/40 font-mono text-xs hidden md:block">
           {'<GDGC/>'}
         </div>
-        <div className="absolute top-8 right-8 text-white/10 font-mono text-xs hidden md:block">
+        <div className="absolute top-8 right-8 text-muted-foreground/40 font-mono text-xs hidden md:block">
           {'{connected}'}
         </div>
-        <div className="absolute bottom-8 left-8 text-white/10 font-mono text-xs hidden md:block">
+        <div className="absolute bottom-8 left-8 text-muted-foreground/40 font-mono text-xs hidden md:block">
           v1.0.0
         </div>
-        <div className="absolute bottom-8 right-8 text-white/10 font-mono text-xs hidden md:block">
+        <div className="absolute bottom-8 right-8 text-muted-foreground/40 font-mono text-xs hidden md:block">
           VIT Bhopal
         </div>
       </motion.div>

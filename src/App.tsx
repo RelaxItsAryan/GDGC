@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Splash from "./pages/Splash";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import SnowParticles from "@/components/SnowParticles";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +14,6 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <SnowParticles />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Splash />} />
