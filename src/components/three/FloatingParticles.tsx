@@ -65,6 +65,72 @@ function Particles({ count = 50 }) {
   );
 }
 
+// Larger colorful particles for stronger decorative accents
+function BigParticles({ count = 36 }) {
+  const mesh = useRef<THREE.Points>(null);
+
+  const big = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+
+    const palette = [
+      [0.259, 0.522, 0.957],
+      [0.918, 0.263, 0.208],
+      [0.984, 0.737, 0.016],
+      [0.204, 0.659, 0.325],
+      [0.682, 0.160, 0.886],
+    ];
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 24; // wider spread
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 12;
+      positions[i * 3 + 2] = Math.random() * 4 + 0.6; // placed slightly in front
+
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      colors[i * 3] = c[0];
+      colors[i * 3 + 1] = c[1];
+      colors[i * 3 + 2] = c[2];
+    }
+
+    return { positions, colors };
+  }, [count]);
+
+  useFrame((state) => {
+    if (mesh.current) {
+      mesh.current.rotation.y = state.clock.elapsedTime * 0.01;
+      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.003) * 0.02;
+    }
+  });
+
+  return (
+    <points ref={mesh}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={big.positions.length / 3}
+          array={big.positions}
+          itemSize={3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={big.colors.length / 3}
+          array={big.colors}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.24}
+        vertexColors
+        transparent
+        opacity={0.85}
+        sizeAttenuation
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
 function FloatingShape({ position, color, shape }: { position: [number, number, number], color: string, shape: 'sphere' | 'box' | 'torus' }) {
   const meshRef = useRef<THREE.Mesh>(null);
   
@@ -170,7 +236,7 @@ function SmallModel({ position, type, scale = 1 }: { position: [number, number, 
   );
 }
 
-function Scene() {
+function Scene({ smallCount = 1000, bigCount = 100, showModels = true }: { smallCount?: number; bigCount?: number; showModels?: boolean; }) {
   // moved models further to the edges and separated them more to avoid overlapping the headline
   const models = [
     { position: [-6.0, 2.2, 2.0], type: 'cloud', scale: 1.6 },
@@ -190,31 +256,52 @@ function Scene() {
       <directionalLight position={[5, 10, 5]} intensity={1.0} />
       <hemisphereLight intensity={0.4} />
 
-      <Particles count={140} />
+      {/* colorful big particles (additive glow) */}
+      <BigParticles count={bigCount} />
 
-      {/* existing floating shapes */}
-      <FloatingShape position={[-3.5, 1.6, 1.2]} color="#4285F4" shape="sphere" />
-      <FloatingShape position={[3.2, -0.8, 1.2]} color="#EA4335" shape="box" />
-      <FloatingShape position={[-2.8, -1.6, 1.1]} color="#FBBC04" shape="torus" />
-      <FloatingShape position={[2.8, 1.6, 1.2]} color="#34A853" shape="sphere" />
+      <Particles count={smallCount} />
 
-      {/* extra small decorative 3D models */}
-      {models.map((m, i) => (
-        <SmallModel key={i} position={m.position as [number, number, number]} type={m.type as any} scale={m.scale} />
-      ))}
+      {/* existing floating shapes (moved outward) */}
+      {showModels && (
+        <>
+          <FloatingShape position={[-3.5, 1.6, 1.2]} color="#4285F4" shape="sphere" />
+          <FloatingShape position={[3.2, -0.8, 1.2]} color="#EA4335" shape="box" />
+          <FloatingShape position={[-2.8, -1.6, 1.1]} color="#FBBC04" shape="torus" />
+          <FloatingShape position={[2.8, 1.6, 1.2]} color="#34A853" shape="sphere" />
+
+          {/* extra small decorative 3D models */}
+          {models.map((m, i) => (
+            <SmallModel key={i} position={m.position as [number, number, number]} type={m.type as any} scale={m.scale} />
+          ))}
+        </>
+      )}
     </>
   );
 }
 
-export default function FloatingParticles() {
+export default function FloatingParticles({
+  className = 'absolute inset-0 z-0 pointer-events-none',
+  smallCount = 1000,
+  bigCount = 100,
+  showModels = true,
+  cameraPosition = [0, 0, 6],
+  fov = 60,
+}: {
+  className?: string;
+  smallCount?: number;
+  bigCount?: number;
+  showModels?: boolean;
+  cameraPosition?: [number, number, number];
+  fov?: number;
+}) {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none">
+    <div className={className}>
       <Canvas
         className="pointer-events-none"
-        camera={{ position: [0, 0, 6], fov: 60 }}
+        camera={{ position: cameraPosition, fov }}
         style={{ background: 'transparent' }}
       >
-        <Scene />
+        <Scene smallCount={smallCount} bigCount={bigCount} showModels={showModels} />
       </Canvas>
     </div>
   );

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { BookOpen, Users, Code, Rocket, Lightbulb, Trophy } from 'lucide-react';
+import FloatingParticles from './three/FloatingParticles';
 
 const activities = [
   {
@@ -49,7 +50,8 @@ const activities = [
 export default function WhatWeDoSection() {
   return (
     <section id="what-we-do" className="py-24 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={40} bigCount={8} showModels={true} />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-8"

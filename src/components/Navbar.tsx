@@ -5,12 +5,12 @@ import gdgcLogo from '@/assets/gdgc-logo.png';
 
 const navItems = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
+  { name: 'Tech Domains', href: '/domains' },
+  { name: 'Non-Tech Domains', href: '/domains?type=non-tech' },
   { name: 'Events', href: '#events' },
-  { name: 'What We Do', href: '#what-we-do' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Join Us', href: '#join' },
+  { name: 'Photo Gallery', href: '#gallery' },
+  { name: 'Contact Us', href: '#contact' },
+  { name: 'Past Organizers', href: '/past-organizers' },
 ];
 
 export default function Navbar() {

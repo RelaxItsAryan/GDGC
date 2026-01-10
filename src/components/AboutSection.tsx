@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Users, Code, Lightbulb, Calendar, Wrench, Globe } from 'lucide-react';
-import GoogleLogo3D from './three/GoogleLogo3D';
+import FloatingParticles from './three/FloatingParticles';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -86,6 +86,9 @@ export default function AboutSection() {
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-google-blue/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-google-yellow/5 rounded-full blur-3xl" />
 
+      {/* Section particles (overlayed above backgrounds, underneath content) */}
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={700} bigCount={100} showModels={true} />
+
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
         <motion.div
@@ -133,17 +136,6 @@ export default function AboutSection() {
           >
             Google Developer Groups on Campus - VIT Bhopal is a community of student developers passionate about Google technologies and building the future.
           </motion.p>
-        </motion.div>
-
-        {/* 3D Google Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
-        >
-          <GoogleLogo3D />
         </motion.div>
 
         {/* Bento grid */}

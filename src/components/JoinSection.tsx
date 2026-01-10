@@ -4,6 +4,7 @@ import { Rocket, Check, Sparkles, Mail, User, GraduationCap } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AnimatedDNA from './three/AnimatedDNA';
+import FloatingParticles from './three/FloatingParticles';
 
 export default function JoinSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -29,6 +30,9 @@ export default function JoinSection() {
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-google-blue/5 via-background to-google-yellow/5" />
       
+      {/* Section particles (overlayed above background, underneath content) */}
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={800} bigCount={18} showModels={true} />
+
       {/* Floating Decorations */}
       <motion.div
         className="absolute top-20 left-10 text-6xl opacity-20"

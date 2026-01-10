@@ -7,6 +7,7 @@ import GallerySection from '@/components/GallerySection';
 import FAQSection from '@/components/FAQSection';
 import JoinSection from '@/components/JoinSection';
 import Footer from '@/components/Footer';
+import TeamSection from '@/components/TeamSection';
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
         <WhatWeDoSection />
         <GallerySection />
         <FAQSection />
+        <TeamSection />
         <JoinSection />
       </main>
       <Footer />

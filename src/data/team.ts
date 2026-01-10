@@ -1,0 +1,42 @@
+export const team = [
+  {
+    id: '1',
+    name: 'Name1',
+    role: 'Lead Organizer',
+    photo: '/src/assets/team/name1.jpg',
+    linkedin: '#',
+    github: '#',
+  },
+  {
+    id: '2',
+    name: 'Name2',
+    role: 'Tech Lead',
+    photo: '/src/assets/team/name2.jpg',
+    linkedin: '#',
+    github: '#',
+  },
+  {
+    id: '3',
+    name: 'Name3',
+    role: 'Events Manager',
+    photo: '/src/assets/team/name3.jpg',
+    linkedin: '#',
+    github: '#',
+  },
+  {
+    id: '4',
+    name: 'Name4',
+    role: 'Design Lead',
+    photo: '/src/assets/team/name4.jpg',
+    linkedin: '#',
+    github: '#',
+  },
+  {
+    id: '5',
+    name: 'Name5',
+    role: 'Outreach',
+    photo: '/src/assets/team/name5.jpg',
+    linkedin: '#',
+    github: '#',
+  },
+];

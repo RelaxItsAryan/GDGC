@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Calendar, MapPin } from 'lucide-react';
+import FloatingParticles from './three/FloatingParticles';
 
 import eventDevfest from '@/assets/event-devfest.png';
 import eventCloud from '@/assets/event-cloud.png';
@@ -51,8 +52,9 @@ const events = [
 
 export default function EventsSection() {
   return (
-    <section id="events" className="py-24 bg-secondary/30">
-      <div className="container mx-auto px-4">
+    <section id="events" className="py-24 bg-secondary/30 relative overflow-hidden">
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={900} bigCount={15} showModels={true} />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"

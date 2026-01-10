@@ -18,8 +18,8 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero"
     >
-      {/* 3D Floating Particles Background */}
-      <FloatingParticles />
+      {/* Section particles (Hero) */}
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={800} bigCount={15} showModels={true} />
 
       {/* Floating Code Elements */}
       {floatingElements.map((el, index) => (

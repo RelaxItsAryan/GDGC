@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import FloatingParticles from './three/FloatingParticles';
 
 const faqs = [
   {
@@ -41,8 +42,9 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section id="faq" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="faq" className="py-24 bg-background relative overflow-hidden">
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={900} bigCount={10} showModels={false} />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left Column - Title */}
           <motion.div

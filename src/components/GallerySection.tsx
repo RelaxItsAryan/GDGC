@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Star } from 'lucide-react';
+import FloatingParticles from './three/FloatingParticles';
 
 import gallery1 from '@/assets/gallery-1.png';
 import gallery2 from '@/assets/gallery-2.png';
@@ -34,8 +35,9 @@ export default function GallerySection() {
   );
 
   return (
-    <section id="gallery" className="py-24 bg-card/50">
-      <div className="container mx-auto px-4">
+    <section id="gallery" className="py-24 bg-card/50 relative overflow-hidden">
+      <FloatingParticles className="absolute inset-0 z-0 pointer-events-none" smallCount={500} bigCount={15} showModels={false} />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-12"
