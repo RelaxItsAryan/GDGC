@@ -70,7 +70,7 @@ const bentoItems = [
   },
   {
     title: 'Events',
-    description: 'We foster a vibrant tech community with workshops and hackathons, empowering students to learn, grow, and showcase their talents.',
+    description: 'We foster a vibrant tech community with workshops and hackathons, empowering students to learn, grow plus showcase their talents.',
     icon: Calendar,
     color: 'google-yellow',
     className: 'md:col-span-1 md:row-span-1',
